@@ -35,6 +35,7 @@ header ul li {
 .top_photo {
   height: 600px;
   width: 100%;
+  margin-bottom: 50px;
 }
 
 main {
@@ -98,6 +99,21 @@ main {
   grid-column: 1/4;
 }
 
+.profile_images .image_title {
+  text-align: center;
+}
+
+.profile_images .image_txt {
+  grid-column: 1/4;
+  text-align: center;
+}
+
+.image_chunk {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 5px;
+}
+
 .profile_image {
   width: 100%;
 }
@@ -105,4 +121,45 @@ main {
 footer {
   width: 100%;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    justify-content: center;
+  }
+
+  .profile {
+    grid-template-columns: 100%;
+    grid-template-columns: 50px 50xp 50px 1rf;
+    margin: 30px auto 30px auto;
+  }
+
+  .profile .content_title {
+    grid-column: 1;
+  }
+
+  .profile h3 {
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .profile .introduction {
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .profile img {
+    grid-column: 1;
+    grid-row: 4;
+    margin: 0 auto;
+  }
+
+  .profile_images .content_title {
+    grid-column: 1;
+  }
+
+  .profile_images {
+    grid-template-columns: 100%;
+    grid-template-rows: 30px 1fr 1fr 1fr;
+  }
 }
