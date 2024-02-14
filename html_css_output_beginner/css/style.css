@@ -25,11 +25,8 @@ header ul {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  gap: 14px;
   margin-right: 4%;
-}
-
-header ul li {
-  margin-left: 14px;
 }
 
 .top_photo {
