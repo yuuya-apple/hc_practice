@@ -5,6 +5,7 @@
 }
 
 header {
+  background-color: red;
   max-width: 960px;
   width: 100%;
   display: flex;
