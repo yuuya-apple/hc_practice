@@ -1,11 +1,8 @@
 class Suica
+  attr_reader :credit
+
   def initialize
     @credit = 500
-  end
-
-  # Suicaは現在のチャージ残高を取得できる
-  def credit_
-    @credit
   end
 
   # Suicaには100円以上の任意の金額をチャージできる

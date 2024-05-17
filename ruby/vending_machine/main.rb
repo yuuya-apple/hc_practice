@@ -8,10 +8,10 @@ p machine.canbuy_itemlist
 p machine.check_stock('モンスター')
 machine.buy('モンスター', suica)
 p machine.check_stock('モンスター')
-p suica.credit_
+p suica.credit
 machine.buy('モンスター', suica)
 p machine.check_stock('モンスター')
-p suica.credit_
+p suica.credit
 begin
   machine.buy('モンスター', suica)
 rescue StandardError => e
