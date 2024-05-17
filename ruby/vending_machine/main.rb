@@ -22,7 +22,9 @@ machine.buy('モンスター', suica)
 p machine.check_stock('モンスター')
 machine.buy('モンスター', suica)
 p machine.check_stock('モンスター')
+p machine.sale
 machine.buy('モンスター', suica)
+p machine.sale
 p machine.check_stock('モンスター')
 begin
   machine.buy('モンスター', suica)
@@ -33,3 +35,4 @@ p machine.canbuy_itemlist
 machine.replenishment('モンスター', 2)
 p machine.check_stock('モンスター')
 p machine.canbuy_itemlist
+p machine.sale

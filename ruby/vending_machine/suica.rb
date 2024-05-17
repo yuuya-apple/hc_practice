@@ -13,10 +13,6 @@ class Suica
   end
 
   def payment(bill)
-    p @credit
-
     @credit -= bill
-    p @credit
-    p bill
   end
 end
