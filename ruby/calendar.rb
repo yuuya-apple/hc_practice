@@ -6,13 +6,10 @@ require 'optparse'
 SPACE = ' '
 MONTHS = { 1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July',
            8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December' }.freeze
-WEEKS_STRING = 'Mo Tu We Th Fr Sa Su'
 
 today = Date.today
 month = today.month
-opt = OptionParser.new
-opt.on('-m [VAL]]', Integer) { |v| month = v }
-opt.parse(ARGV)
+OptionParser.new.on('-m [VAL]]', Integer) { |v| month = v }.parse(ARGV)
 
 unless (1..12).cover?(month)
   puts "#{month} is neither a month number (1..12) nor a name" unless (1..12).cover?(month)
@@ -20,7 +17,7 @@ unless (1..12).cover?(month)
 end
 
 puts "#{MONTHS[month]}#{SPACE}#{today.year}".center(20)
-puts WEEKS_STRING
+puts 'Mo Tu We Th Fr Sa Su'
 
 first_date = Date.new(today.year, month, 1)
 last_date = Date.new(today.year, month, -1)
