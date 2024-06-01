@@ -62,7 +62,7 @@
   user_id {label:"bigint, not null, FK(users)"}
   favorite_id {label:"bigint, FK(favorites)"}
   follow_id {label:"bigint, FK(follows)"}
-  read_flag  {label:"boolean, default 0, not null"}
+  is_read  {label:"boolean, default 0, not null"}
   created_at { label: "datatime, default current_timestamp, not null"}
   updated_at { label: "datatime, default current_timestamp, not null"}
 
