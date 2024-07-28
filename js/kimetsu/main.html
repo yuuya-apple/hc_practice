@@ -3,17 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="main.css" rel="stylesheet" />
     <title>Document</title>
   </head>
   <body>
     <div id="loading" class="loading">
       <div class="load-circle"></div>
     </div>
-    <input id="select-all" type="radio" name="category" checked>全キャラクター
-		<input id="select-kisatsutai" type="radio" name="category" >鬼殺隊
-		<input id="select-hashira" type="radio" name="category" >柱
-		<input id="select-oni" type="radio" name="category" >鬼
+    <form id="category-radio" action="">
+      <input type="radio" name="category" value="all" checked >全キャラクター
+		  <input type="radio" name="category" value="kisatsutai" >鬼殺隊
+		  <input type="radio" name="category" value="hashira" >柱
+		  <input type="radio" name="category" value="oni" >鬼
+    </form>
     <table border="2" id="table">
       <tr>
         <th>name</th>

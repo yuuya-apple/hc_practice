@@ -1,87 +1,33 @@
 const domain = "https://ihatov08.github.io";
 
-const selectAll = document.getElementById("select-all");
-const selectKisatsutai = document.getElementById("select-kisatsutai");
-const selectOni = document.getElementById("select-oni");
-const selectHashira = document.getElementById("select-hashira");
+const selectRadio = document.getElementById("category-radio");
 
-selectAll.addEventListener(
+selectRadio.addEventListener(
   "click",
   () => {
-    startLoad();
-    apiAll();
-    setTimeout(stopLoad, 1000);
-  }
-  ,false
-)
+    const radios = Array.prototype.slice.call(
+      document.getElementsByName("category")
+    );
 
-selectKisatsutai.addEventListener(
-  "click",
-  () => {
-    startLoad();
-    apiKisatsutai();
-    setTimeout(stopLoad, 1000);
+    const radio= radios.find(r=>(r.checked))
+
+    mainProc(radio.value);
   },
   false
 );
 
-selectOni.addEventListener(
-  "click",
-  () => {
-    startLoad();
-    apiOni();
-    setTimeout(stopLoad, 1000);
-  },
-  false
-);
+async function mainProc(category) {
 
-selectHashira.addEventListener(
-  "click",
-  () => {
-    startLoad();
-    apiHashira();
-    setTimeout(stopLoad, 1000);
-  },
-  false
-);
+  startLoad();
 
-async function apiAll() {
   const response = await fetch(
-    "https://ihatov08.github.io/kimetsu_api/api/all.json"
-  );
-  const json =await response.json();
-
-  reflectionTable(json);
-}
-startLoad();
-apiAll();
-stopLoad();
-
-async function apiKisatsutai() {
-  const response = await fetch(
-    "https://ihatov08.github.io/kimetsu_api/api/kisatsutai.json"
+    `https://ihatov08.github.io/kimetsu_api/api/${category}.json`
   );
   const json = await response.json();
 
   reflectionTable(json);
-}
 
-async function apiOni() {
-  const response = await fetch(
-    "https://ihatov08.github.io/kimetsu_api/api/oni.json"
-  );
-  const json = await response.json();
-
-  reflectionTable(json);
-}
-
-async function apiHashira() {
-  const response = await fetch(
-    "https://ihatov08.github.io/kimetsu_api/api/hashira.json"
-  );
-  const json = await response.json();
-
-  reflectionTable(json);
+  stopLoad();
 }
 
 function reflectionTable(json) {
@@ -123,3 +69,5 @@ function stopLoad() {
   let element = document.getElementById("loading");
   element.style.visibility = "hidden";
 }
+
+mainProc("all");
