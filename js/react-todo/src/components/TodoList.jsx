@@ -1,18 +1,18 @@
 import { memo } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { todoListState } from "../store/todoListState";
 import { TodoItem } from "./TodoItem";
 
+export const TodoList = () => {
+  const [todoList, setTodoList] = useRecoilState(todoListState);
 
-export const TodoList = memo(() => {
+  console.log(todoList);
 
-  const todoList = useRecoilValue(todoListState);
-
-  const todoListView = todoList.map((item, index) =>
-      <li key={index}>
-        <TodoItem item={item} index={index} />
-      </li>
-  );
+  const todoListView = todoList.map((item, index) => (
+    <li key={index}>
+      <TodoItem item={item} index={index} setTodoList={setTodoList} />
+    </li>
+  ));
 
   return <ul>{todoListView}</ul>;
-});
+};

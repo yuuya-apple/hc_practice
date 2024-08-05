@@ -1,62 +1,49 @@
-import { memo, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { memo, useCallback, useState } from "react";
+
+import { useRecoilValue } from "recoil";
 import { todoListState } from "../store/todoListState";
 
-export const TodoItem = memo((props) => {
-  const { item, index } = props;
-  const [todoList, setTodoList] = useRecoilState(todoListState);
+export const TodoItem = (props) => {
+  const { item, index, setTodoList } = props;
 
-  const deleteItem = useCallback(() => {
+  const [todoTxt, setTodoTxt] = useState(item.todoName);
+  const todoList = useRecoilValue(todoListState);
+  console.log(index);
+
+  const deleteItem = () => {
     if (!window.confirm("本当によろしいですか？")) {
       return;
     }
-    setTodoList(todoList.filter((item, i) => index != i));
-  });
+    setTodoList((prepTodoList) => prepTodoList.filter((item, i) => index != i));
+  };
 
   const onChangeCheckbox = useCallback(() => {
-    const indexItem = todoList[index];
-
-    setTodoList([
-      ...todoList.slice(0, index),
-      {
-        isChecked: !indexItem.isChecked,
-        isEdit: indexItem.isEdit,
-        todoName: indexItem.todoName,
-      },
-      ...todoList.slice(index + 1),
-    ]);
+    const newTodoList = [...todoList];
+    newTodoList[index] = { ...todoList[index] };
+    newTodoList[index].isChecked = !todoList[index].isChecked;
+    setTodoList(newTodoList);
   });
 
   const onChangeEdit = useCallback(() => {
-    const indexItem = todoList[index];
+    const newTodoList = [...todoList];
+    newTodoList[index] = { ...todoList[index] };
+    newTodoList[index].isEdit = !todoList[index].isEdit;
 
-    setTodoList([
-      ...todoList.slice(0, index),
-      {
-        isChecked: indexItem.isChecked,
-        isEdit: !indexItem.isEdit,
-        todoName: indexItem.todoName,
-      },
-      ...todoList.slice(index + 1),
-    ]);
+    if (newTodoList[index].isEdit) {
+      setTodoTxt(newTodoList[index].todoName);
+    } else {
+      newTodoList[index].todoName = todoTxt;
+    }
+
+    setTodoList(newTodoList);
   });
 
   const onChangeTxt = useCallback((event) => {
-    const indexItem = todoList[index];
-
-    setTodoList([
-      ...todoList.slice(0, index),
-      {
-        isChecked: indexItem.isChecked,
-        isEdit: indexItem.isEdit,
-        todoName: event.target.value,
-      },
-      ...todoList.slice(index + 1),
-    ]);
+    setTodoTxt(event.target.value);
   });
 
   const normalView = (
-    <>
+    <div id={index}>
       <input
         type="checkbox"
         checked={item.isChecked}
@@ -65,15 +52,15 @@ export const TodoItem = memo((props) => {
       {item.todoName}
       <button onClick={onChangeEdit}>編集</button>
       <button onClick={deleteItem}>削除</button>
-    </>
+    </div>
   );
 
   const editView = (
-    <>
-      <input type="text" value={item.todoName} onChange={onChangeTxt} />
+    <div id={index}>
+      <input type="text" value={todoTxt} onChange={onChangeTxt} />
       <button onClick={onChangeEdit}>保存</button>
-    </>
+    </div>
   );
 
   return item.isEdit ? editView : normalView;
-});
+};
