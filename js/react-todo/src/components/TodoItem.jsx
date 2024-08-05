@@ -1,49 +1,56 @@
 import { memo, useCallback, useState } from "react";
-
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { todoListState } from "../store/todoListState";
 
-export const TodoItem = (props) => {
-  const { item, index, setTodoList } = props;
-
+export const TodoItem = memo((props) => {
+  const { item } = props;
+  const [todoList, setTodoList] = useRecoilState(todoListState);
   const [todoTxt, setTodoTxt] = useState(item.todoName);
-  const todoList = useRecoilValue(todoListState);
-  console.log(index);
 
-  const deleteItem = () => {
+  const deleteItem = useCallback(() => {
     if (!window.confirm("本当によろしいですか？")) {
       return;
     }
-    setTodoList((prepTodoList) => prepTodoList.filter((item, i) => index != i));
-  };
-
-  const onChangeCheckbox = useCallback(() => {
-    const newTodoList = [...todoList];
-    newTodoList[index] = { ...todoList[index] };
-    newTodoList[index].isChecked = !todoList[index].isChecked;
-    setTodoList(newTodoList);
+    setTodoList(todoList.filter((entity) => entity.id != item.id));
   });
 
-  const onChangeEdit = useCallback(() => {
-    const newTodoList = [...todoList];
-    newTodoList[index] = { ...todoList[index] };
-    newTodoList[index].isEdit = !todoList[index].isEdit;
+  const onChangeCheckbox = useCallback(() =>
+    setTodoList(
+      todoList.map((entity) => {
+        if (entity.id === item.id) {
+          const newItem = { ...entity };
+          newItem.isChecked = !newItem.isChecked;
+          return newItem;
+        } else {
+          return entity;
+        }
+      })
+    )
+  );
 
-    if (newTodoList[index].isEdit) {
-      setTodoTxt(newTodoList[index].todoName);
-    } else {
-      newTodoList[index].todoName = todoTxt;
-    }
-
-    setTodoList(newTodoList);
-  });
+  const onChangeEdit = useCallback(() =>
+    setTodoList(
+      todoList.map((entity) => {
+        if (entity.id === item.id) {
+          const newItem = { ...entity };
+          newItem.isEdit = !newItem.isEdit;
+          if (!newItem.isEdit) {
+            newItem.todoName = todoTxt;
+          }
+          return newItem;
+        } else {
+          return entity;
+        }
+      })
+    )
+  );
 
   const onChangeTxt = useCallback((event) => {
     setTodoTxt(event.target.value);
   });
 
   const normalView = (
-    <div id={index}>
+    <div>
       <input
         type="checkbox"
         checked={item.isChecked}
@@ -56,11 +63,11 @@ export const TodoItem = (props) => {
   );
 
   const editView = (
-    <div id={index}>
+    <div>
       <input type="text" value={todoTxt} onChange={onChangeTxt} />
       <button onClick={onChangeEdit}>保存</button>
     </div>
   );
 
   return item.isEdit ? editView : normalView;
-};
+});
