@@ -6,6 +6,6 @@ services:
     build: .
     volumes:
       - ./:/app
-    command: sh -c 'cd react-todo && yarn start'
+    command: sh -c 'cd js/react-todo && yarn start'
     ports:
       - '3000:3000'
