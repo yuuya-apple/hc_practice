@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+
 # 課題提出用のリポジトリです！
+
+=======
+
+> > > > > > > a042795bd176730c77071b1e41eefb977b940ce1
 
 <a href="https://yuuya-apple.github.io/hc_practice/html_css_output_beginner/html/practice.html" target="\_blank">html 初級課題</a> <br>
 <a href="https://yuuya-apple.github.io/hc_practice/js/todo/index.html" target="\_blank">js-todo 課題</a> <br>
